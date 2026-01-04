@@ -1,0 +1,17 @@
+{
+    "name": "numeo-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "client",
+        "be"
+    ],
+    "scripts": {
+        "dev:client": "npm run dev --workspace=client",
+        "dev:be": "npm run dev --workspace=be",
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:be\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
