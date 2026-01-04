@@ -4,7 +4,7 @@ import './App.css'
 import useMediaRecorder from './hook/useMediaRecorder';
 
 function App() {
-  const { recordedUrl, startRecording, stopRecording, result, isConnected, isRecording } = useMediaRecorder();
+  const { recordedUrl, startRecording, stopRecording, result, isConnected, isRecording, isLoading } = useMediaRecorder();
   return (
     <div className="App">
       {isConnected ? (
@@ -25,7 +25,8 @@ function App() {
         )}
 
       </div>
-      {result && <p>Translation: {result}</p>}
+      {isLoading && <p>Translating...</p>}
+      {result && !isLoading && <p>Translation: {result}</p>}
     </div>
   )
 }

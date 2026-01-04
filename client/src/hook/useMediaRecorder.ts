@@ -7,11 +7,13 @@ const useMediaRecorder = () => {
     const [result, setResult] = useState<string>("");
     const [isConnected, setIsConnected] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         socket.on("translationResult", (data: string) => {
             console.log("Received translation result from server:", data);
-            setResult(data)
+            setResult(data);
+            setIsLoading(false);
         });
         function onConnect() {
             setIsConnected(true);
@@ -50,6 +52,7 @@ const useMediaRecorder = () => {
                         setRecordedUrl(audioURL);
                     }
                     mediaRecorder.ondataavailable = (e: BlobEvent) => {
+                        setIsLoading(true);
                         socket.emit("translate", e.data);
                         chunks.push(e.data);
                     };
@@ -84,7 +87,8 @@ const useMediaRecorder = () => {
         stopRecording,
         result,
         isConnected,
-        isRecording
+        isRecording,
+        isLoading
     }
 }
 
